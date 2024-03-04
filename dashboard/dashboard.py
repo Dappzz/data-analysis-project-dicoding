@@ -11,12 +11,12 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Dataset
 datetime_cols = ["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date", "order_purchase_timestamp", "shipping_limit_date"]
-all_df = pd.read_csv("./data/all_data.csv")
+all_df = pd.read_csv('https://raw.githubusercontent.com/Dappzz/data-analysis-project-dicoding/main/dashboard/all_data.csv')
 all_df.sort_values(by="order_approved_at", inplace=True)
 all_df.reset_index(inplace=True)
 
 # Geolocation Dataset
-geolocation = pd.read_csv('./data/geolocation.csv')
+geolocation = pd.read_csv('https://raw.githubusercontent.com/Dappzz/data-analysis-project-dicoding/main/dashboard/geolocation.csv')
 data = geolocation.drop_duplicates(subset='customer_unique_id')
 
 for col in datetime_cols:
@@ -27,11 +27,8 @@ max_date = all_df["order_approved_at"].max()
 
 # Sidebar
 with st.sidebar:
-    # Title
-    st.title("Sulistiawan A. P.")
-
     # Logo Image
-    st.image("./dashboard/icon.png")
+    st.image('https://raw.githubusercontent.com/Dappzz/data-analysis-project-dicoding/main/dashboard/icon.png', width=200)
 
     # Date Range
     start_date, end_date = st.date_input(
@@ -55,7 +52,7 @@ state, most_common_state = function.create_bystate_df()
 order_status, common_status = function.create_order_status()
 
     # Title
-st.header("E-Commerce Dashboard :convenience_store:")
+st.header("E-Commerce Data Analysis Dashboard")
 
 # Daily Orders
 st.subheader("Daily Orders")
@@ -76,7 +73,7 @@ ax.plot(
     daily_orders_df["order_count"],
     marker="o",
     linewidth=2,
-    color="#90CAF9"
+    color="#068DA9"
 )
 ax.tick_params(axis="x", rotation=45)
 ax.tick_params(axis="y", labelsize=15)
@@ -100,7 +97,7 @@ ax.plot(
     sum_spend_df["total_spend"],
     marker="o",
     linewidth=2,
-    color="#90CAF9"
+    color="#068DA9"
 )
 ax.tick_params(axis="x", rotation=45)
 ax.tick_params(axis="y", labelsize=15)
@@ -120,30 +117,30 @@ with col2:
 
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(45, 25))
 
-colors = ["#068DA9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors = ["#068DA9", "#B7C9F2", "#B7C9F2", "#B7C9F2", "#B7C9F2"]
 
 sns.barplot(x="product_count", y="product_category_name_english", data=sum_order_items_df.head(5), palette=colors, ax=ax[0])
 ax[0].set_ylabel(None)
-ax[0].set_xlabel("Number of Sales", fontsize=30)
-ax[0].set_title("Produk paling banyak terjual", loc="center", fontsize=50)
-ax[0].tick_params(axis ='y', labelsize=35)
-ax[0].tick_params(axis ='x', labelsize=30)
+ax[0].set_xlabel("Number of Sales", fontsize=40)
+ax[0].set_title("Most Sold Products", loc="center", fontsize=60)
+ax[0].tick_params(axis ='y', labelsize=45)
+ax[0].tick_params(axis ='x', labelsize=40)
 
 sns.barplot(x="product_count", y="product_category_name_english", data=sum_order_items_df.sort_values(by="product_count", ascending=True).head(5), palette=colors, ax=ax[1])
 ax[1].set_ylabel(None)
-ax[1].set_xlabel("Number of Sales", fontsize=30)
+ax[1].set_xlabel("Number of Sales", fontsize=40)
 ax[1].invert_xaxis()
 ax[1].yaxis.set_label_position("right")
 ax[1].yaxis.tick_right()
-ax[1].set_title("Produk paling sedikit terjual", loc="center", fontsize=50)
-ax[1].tick_params(axis='y', labelsize=35)
-ax[1].tick_params(axis='x', labelsize=30)
+ax[1].set_title("Fewest Sold Products", loc="center", fontsize=60)
+ax[1].tick_params(axis='y', labelsize=45)
+ax[1].tick_params(axis='x', labelsize=40)
 
 st.pyplot(fig)
 
 # Customer Demographic
 st.subheader("Customer Demographic")
-tab1, tab2, tab3 = st.tabs(["State", "Order Status", "Geolocation"])
+tab1, tab2 = st.tabs(["State",  "Geolocation"])
 
 with tab1:
     most_common_state = state.customer_state.value_counts().index[0]
@@ -162,10 +159,10 @@ with tab1:
     plt.xticks(fontsize=12)
     st.pyplot(fig)
 
-with tab3:
+with tab2:
     map_plot.plot()
 
     with st.expander("See Explanation"):
         st.write('Sesuai dengan grafik yang sudah dibuat, ada lebih banyak pelanggan di bagian tenggara dan selatan. Informasi lainnya, ada lebih banyak pelanggan di kota-kota yang merupakan ibu kota (São Paulo, Rio de Janeiro, Porto Alegre, dan lainnya).')
 
-st.caption('Copyright (C) Sulistiawan A. P. 2023')
+st.caption('Copyright (C) Muhammad Daffa Lesmana 2024')
