@@ -163,6 +163,7 @@ with tab2:
     map_plot.plot()
 
     with st.expander("See Explanation"):
-        st.write('Sesuai dengan grafik yang sudah dibuat, ada lebih banyak pelanggan di bagian tenggara dan selatan. Informasi lainnya, ada lebih banyak pelanggan di kota-kota yang merupakan ibu kota (São Paulo, Rio de Janeiro, Porto Alegre, dan lainnya).')
+        st.write('
+According to the graph that has been created, there are more customers in the southeast and south regions. Additionally, there are more customers in cities that are capital cities (São Paulo, Rio de Janeiro, Porto Alegre, etc.).')
 
 st.caption('Copyright (C) Muhammad Daffa Lesmana 2024')
